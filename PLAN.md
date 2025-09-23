@@ -14,7 +14,9 @@
   - first_name (text)
   - middle_names (text JSON array)
   - last_name (text)
-  - dob (text, ISO-8601 date)
+  - dob_year (integer)
+  - dob_month (integer)
+  - dob_day (integer)
   - national_id (text UNIQUE)
 
 ## API Endpoints
@@ -23,7 +25,7 @@
 - GET /api/people?nationalId=...  → fetch by national_id
 
 ## Validation & Errors
-- Zod-validated payloads; reject unknown fields
+- Zod-validated payloads; reject unknown fields; DOB split as numbers (year 1900..2100, month 1..12, day valid for month/year)
 - 400: invalid input; 404: not found; 409: duplicate national_id
 - JSON error shape: { code, message }
 
