@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import api from './api.ts';
 
 const app = new Hono();
 
@@ -18,6 +19,9 @@ app.get('/hello', (c) => {
   const name = c.req.query('name') ?? 'World';
   return c.json({ message: `hello, ${name}!` });
 });
+
+// api routes
+app.route('/api', api);
 
 // 404
 app.notFound((c) => c.json({ error: 'Not Found' }, 404));
