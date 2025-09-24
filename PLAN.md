@@ -37,5 +37,14 @@
 - Log method, path, status, timing (existing middleware)
 - Tests: create/fetch flows, invalid payloads, duplicate handling
 
-## Next Steps
-1) Wire SQLite + Drizzle schema; 2) DAL; 3) Hono routes; 4) Tests; 5) Document endpoints; 6) Plan VAPI DTMF for sensitive inputs
+## Status
+- Implemented: SQLite schema, Zod validation, repo, Hono routes (POST/GET), tests passing, docs organized.
+
+## Next Steps (tomorrow)
+1) Centralize error handling and codes
+2) Add API key auth + CORS for Vapi
+3) Document curl examples and auth in docs
+4) Optional: PUT /api/people/:id for corrections
+5) Add /healthz with DB check
+6) Draft minimal OpenAPI for /api/people
+7) Plan DTMF flow for nationalId

@@ -25,6 +25,10 @@
 - get_person_by_national_id: { nationalId: string }
 - create_person: { firstName: string; middleNames: string[]; lastName: string; dobYear: number; dobMonth: number; dobDay: number; nationalId: string }
 
+## Testing Notes
+- Outside US: use Web calls, or connect a local DID via Phone Number Hooks/SIP; or use a US VoIP/eSIM to dial the US number.
+- Local dev: set `DB_FILE=':memory:'` for ephemeral runs/tests; otherwise `./data.db`.
+
 ## Examples
 - Create:
   curl -sS -X POST localhost:3000/api/people -H 'content-type: application/json' -d '{"firstName":"Ada","middleNames":["Lovelace"],"lastName":"Byron","dobYear":1990,"dobMonth":12,"dobDay":10,"nationalId":"ID-123"}'
