@@ -8,7 +8,8 @@
     "start": "bun run src/index.ts",
     "test": "bun test",
     "typecheck": "bunx tsc -p tsconfig.json --noEmit",
-    "tunnel": "ngrok http ${PORT:-3000}",
+    "tunnel": "sh -c 'if [ -n \"$NGROK_DOMAIN\" ]; then ngrok http --domain=$NGROK_DOMAIN ${PORT:-3000}; else ngrok http ${PORT:-3000}; fi'",
+    "tunnel:domain": "ngrok http --domain=$NGROK_DOMAIN ${PORT:-3000}",
     "tunnel:url": "curl -s http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[] | select(.proto==\"https\") | .public_url'"
   },
   "devDependencies": {
