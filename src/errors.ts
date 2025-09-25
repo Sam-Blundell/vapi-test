@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 
-type ErrorCode = 'VALIDATION_ERROR' | 'INVALID_ID' | 'MISSING_QUERY' | 'NOT_FOUND' | 'DUPLICATE';
+type ErrorCode = 'VALIDATION_ERROR' | 'INVALID_ID' | 'MISSING_QUERY' | 'NOT_FOUND' | 'DUPLICATE' | 'UNAUTHORIZED';
 
-export function jsonError(c: Context, code: ErrorCode, message: string, status: 400 | 404 | 409) {
+export function jsonError(c: Context, code: ErrorCode, message: string, status: 400 | 401 | 404 | 409) {
   return c.json({ code, message }, status);
 }
