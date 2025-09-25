@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'bun:test';
 
-// Ensure DB is in-memory for this test file before loading app
+// Ensure DB is in-memory and auth disabled for this test file before loading app
 process.env.DB_FILE = ':memory:';
+process.env.API_KEY = '';
 const { default: app } = await import('./server.ts');
 
 type Person = {
