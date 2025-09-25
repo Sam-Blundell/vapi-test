@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'bun:test';
+process.env.DB_FILE = ':memory:';
 import app from './server.ts';
 
 describe('server routes', () => {

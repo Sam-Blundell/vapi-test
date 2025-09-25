@@ -5,8 +5,9 @@
     "target": "ESNext",
     "module": "Preserve",
     "moduleDetection": "force",
+    // jsx not used; keep default to avoid surprises
     "jsx": "react-jsx",
-    "allowJs": true,
+    "allowJs": false,
 
     // Bundler mode
     "moduleResolution": "bundler",

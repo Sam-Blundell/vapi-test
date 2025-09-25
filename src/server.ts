@@ -23,6 +23,21 @@ app.get('/hello', (c) => {
 // api routes
 app.route('/api', api);
 
+// healthz (optional deep check)
+app.get('/healthz', async (c) => {
+  const deep = c.req.query('deep');
+  if (deep === '1') {
+    try {
+      // lightweight DB check via people count
+      const res = (await import('./db.ts')).default.query('SELECT COUNT(*) as cnt FROM people').get() as { cnt: number };
+      return c.json({ ok: true, db: { people: res.cnt } });
+    } catch {
+      return c.json({ ok: false, db: { error: 'unavailable' } }, 503);
+    }
+  }
+  return c.text('ok');
+});
+
 // 404
 app.notFound((c) => c.json({ error: 'Not Found' }, 404));
 

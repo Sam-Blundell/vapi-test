@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { personInputSchema, personOutputSchema } from './schemas.ts';
 import { getPersonById, getPersonByNationalId, insertPerson } from './repo.ts';
+import { jsonError } from './errors.ts';
 
 const api = new Hono();
 
@@ -8,13 +9,13 @@ api.post('/people', async (c) => {
   const body = await c.req.json().catch(() => null);
   const parsed = personInputSchema.safeParse(body);
   if (!parsed.success) {
-    return c.json({ code: 'VALIDATION_ERROR', message: parsed.error.message }, 400);
+    return jsonError(c, 'VALIDATION_ERROR', parsed.error.message, 400);
   }
   const input = parsed.data;
 
   const existing = getPersonByNationalId(input.nationalId);
   if (existing) {
-    return c.json({ code: 'DUPLICATE', message: 'nationalId already exists' }, 409);
+    return jsonError(c, 'DUPLICATE', 'nationalId already exists', 409);
   }
 
   const id = insertPerson({
@@ -44,10 +45,10 @@ api.post('/people', async (c) => {
 api.get('/people/:id', (c) => {
   const id = Number(c.req.param('id'));
   if (!Number.isFinite(id) || id <= 0) {
-    return c.json({ code: 'INVALID_ID', message: 'id must be positive integer' }, 400);
+    return jsonError(c, 'INVALID_ID', 'id must be positive integer', 400);
   }
   const row = getPersonById(id);
-  if (!row) return c.json({ code: 'NOT_FOUND', message: 'person not found' }, 404);
+  if (!row) return jsonError(c, 'NOT_FOUND', 'person not found', 404);
   return c.json({
     id: row.id,
     firstName: row.first_name,
@@ -63,10 +64,10 @@ api.get('/people/:id', (c) => {
 api.get('/people', (c) => {
   const nationalId = c.req.query('nationalId');
   if (!nationalId) {
-    return c.json({ code: 'MISSING_QUERY', message: 'nationalId is required' }, 400);
+    return jsonError(c, 'MISSING_QUERY', 'nationalId is required', 400);
   }
   const row = getPersonByNationalId(nationalId);
-  if (!row) return c.json({ code: 'NOT_FOUND', message: 'person not found' }, 404);
+  if (!row) return jsonError(c, 'NOT_FOUND', 'person not found', 404);
   return c.json({
     id: row.id,
     firstName: row.first_name,
