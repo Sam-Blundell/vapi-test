@@ -16,7 +16,7 @@ export function corsMiddleware(originsEnv = process.env.CORS_ORIGINS) {
     // Preflight
     if (c.req.method === 'OPTIONS') {
       c.header('Access-Control-Allow-Methods', 'GET,POST,PUT,OPTIONS');
-      c.header('Access-Control-Allow-Headers', 'content-type, authorization, x-api-key');
+      c.header('Access-Control-Allow-Headers', 'content-type, authorization, x-api-key, ngrok-skip-browser-warning');
       c.header('Access-Control-Max-Age', '600');
       if (allowed && origin) c.header('Access-Control-Allow-Origin', origin);
       return new Response(null, { status: 204 });

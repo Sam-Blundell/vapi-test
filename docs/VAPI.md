@@ -27,6 +27,7 @@
 
 ## Testing Notes
 - Outside US: use Web calls, or connect a local DID via Phone Number Hooks/SIP; or use a US VoIP/eSIM to dial the US number.
+- Ngrok: browser calls should set header `ngrok-skip-browser-warning: true` and include your ngrok URL in `CORS_ORIGINS`.
 - Local dev: set `DB_FILE=':memory:'` for ephemeral runs/tests; otherwise `./data.db`.
 
 ## Examples

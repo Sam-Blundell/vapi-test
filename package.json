@@ -7,7 +7,9 @@
     "dev": "bun run src/index.ts",
     "start": "bun run src/index.ts",
     "test": "bun test",
-    "typecheck": "bunx tsc -p tsconfig.json --noEmit"
+    "typecheck": "bunx tsc -p tsconfig.json --noEmit",
+    "tunnel": "ngrok http ${PORT:-3000}",
+    "tunnel:url": "curl -s http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[] | select(.proto==\"https\") | .public_url'"
   },
   "devDependencies": {
     "@types/bun": "latest",
