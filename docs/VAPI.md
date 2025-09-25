@@ -10,7 +10,7 @@
 - Purpose: capture identity info (first/middle/last names, DOB Y/M/D, nationalId) and store/retrieve it.
 - Flow: try GET by `nationalId`; on 404, POST to create; read back summary.
 - Inputs: nationalId verbally now; later via DTMF for privacy.
-- Auth: plan to require `API_KEY` header; CORS allowlist for Vapi origin.
+- Auth: `API_KEY` (optional) via `x-api-key` or `Authorization: Bearer`; CORS allowlist via `CORS_ORIGINS`.
 
 ## API (for tools)
 - Base URL: `http://localhost:${PORT || 3000}`; DB via `DB_FILE` (default `./data.db`).

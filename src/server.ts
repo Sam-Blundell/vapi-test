@@ -1,5 +1,7 @@
 import { Hono } from 'hono';
 import api from './api.ts';
+import { corsMiddleware } from './cors.ts';
+import { apiKeyMiddleware } from './auth.ts';
 
 const app = new Hono();
 
@@ -11,6 +13,9 @@ app.use('*', async (c, next) => {
   console.log(`${c.req.method} ${new URL(c.req.url).pathname} -> ${c.res.status} ${ms}ms`);
 });
 
+// CORS (env-gated)
+app.use('*', corsMiddleware());
+
 // health
 app.get('/health', (c) => c.text('ok'));
 
@@ -20,8 +25,8 @@ app.get('/hello', (c) => {
   return c.json({ message: `hello, ${name}!` });
 });
 
-// api routes
-app.route('/api', api);
+// api routes with optional API key auth
+app.route('/api', new Hono().use('*', apiKeyMiddleware).route('/', api));
 
 // healthz (optional deep check)
 app.get('/healthz', async (c) => {
