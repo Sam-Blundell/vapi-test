@@ -8,9 +8,7 @@
     "start": "bun run src/index.ts",
     "test": "bun test",
     "typecheck": "bunx tsc -p tsconfig.json --noEmit",
-    "tunnel": "sh -c 'set -a; [ -f .env ] && . ./.env; set +a; if [ -n \"$NGROK_URL\" ]; then ngrok http --url=$NGROK_URL ${PORT:-3000}; elif [ -n \"$NGROK_DOMAIN\" ]; then ngrok http --domain=$NGROK_DOMAIN ${PORT:-3000}; else ngrok http ${PORT:-3000}; fi'",
-    "tunnel:domain": "sh -c 'set -a; [ -f .env ] && . ./.env; set +a; ngrok http --domain=$NGROK_DOMAIN ${PORT:-3000}'",
-    "tunnel:url": "sh -c 'set -a; [ -f .env ] && . ./.env; set +a; ngrok http --url=$NGROK_URL ${PORT:-3000}'"
+    "tunnel": "ngrok http --url=logical-jaybird-newly.ngrok-free.app 3000"
   },
   "devDependencies": {
     "@types/bun": "latest",
