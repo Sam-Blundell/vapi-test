@@ -8,9 +8,9 @@
     "start": "bun run src/index.ts",
     "test": "bun test",
     "typecheck": "bunx tsc -p tsconfig.json --noEmit",
-    "tunnel": "sh -c 'set -a; [ -f .env ] && . ./.env; set +a; if [ -n \"$NGROK_DOMAIN\" ]; then ngrok http --domain=$NGROK_DOMAIN ${PORT:-3000}; else ngrok http ${PORT:-3000}; fi'",
+    "tunnel": "sh -c 'set -a; [ -f .env ] && . ./.env; set +a; if [ -n \"$NGROK_URL\" ]; then ngrok http --url=$NGROK_URL ${PORT:-3000}; elif [ -n \"$NGROK_DOMAIN\" ]; then ngrok http --domain=$NGROK_DOMAIN ${PORT:-3000}; else ngrok http ${PORT:-3000}; fi'",
     "tunnel:domain": "sh -c 'set -a; [ -f .env ] && . ./.env; set +a; ngrok http --domain=$NGROK_DOMAIN ${PORT:-3000}'",
-    "tunnel:url": "curl -s http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[] | select(.proto==\"https\") | .public_url'"
+    "tunnel:url": "sh -c 'set -a; [ -f .env ] && . ./.env; set +a; ngrok http --url=$NGROK_URL ${PORT:-3000}'"
   },
   "devDependencies": {
     "@types/bun": "latest",
